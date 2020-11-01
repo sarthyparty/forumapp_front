@@ -5,8 +5,7 @@ class AskQuestion extends Component {
         return (
             <div>
                 <h2>GOT QUESTIONS?</h2>
-                <p>You're in the right place!
-                </p>
+                <p>You're in the right place!</p>
             </div>
         );
     }

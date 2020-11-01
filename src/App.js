@@ -16,8 +16,8 @@ class App extends Component {
                 <h1>EPHS Forum</h1>
                 <ul className="header">
                     <li><NavLink exact to="/">Home</NavLink></li>
-                    <li><NavLink to="/questions">Questions</NavLink></li>
-                    <li><NavLink to="/ask-question">Ask-Question</NavLink></li>
+                    <li><NavLink to="/questions">Browse Questions</NavLink></li>
+                    <li><NavLink to="/ask-question">Ask a Question</NavLink></li>
                 </ul>
                 <div className="content">
                     <Route exact path="/" component={Home}/>
