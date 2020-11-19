@@ -7,6 +7,7 @@ import {
 import Home from "./Home";
 import AskQuestion from "./AskQuestion";
 import QuestionList from "./QuestionList";
+import QuestionDetail from "./QuestionDetail";
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
                     <Route exact path="/" component={Home}/>
                     <Route path="/questions" component={QuestionList}/>
                     <Route path="/ask-question" component={AskQuestion}/>
+                    <Route path="/question-detail" component={QuestionDetail}/>
                 </div>
             </div>
         </HashRouter>
