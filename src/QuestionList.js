@@ -32,7 +32,7 @@ const Questions = ({ questions }) => {
                         <h5 class="card-title">{question.pk}</h5>
                         <NavLink to={{
                             pathname: '/question-detail/',
-                            questionProps: question.pk}}>{question.content}</NavLink>
+                            questionProps: question}}>{question.content}</NavLink>
                         <p class="card-text">{question.time_asked}</p>
                     </div>
                 </div>
