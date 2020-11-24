@@ -8,6 +8,7 @@ import Home from "./Home";
 import AskQuestion from "./AskQuestion";
 import QuestionList from "./QuestionList";
 import QuestionDetail from "./QuestionDetail";
+import UnansweredQuestions from "./UnansweredQuestions";
 
 class App extends Component {
   render() {
@@ -19,12 +20,14 @@ class App extends Component {
                     <li><NavLink exact to="/">Home</NavLink></li>
                     <li><NavLink to="/questions">Browse Questions</NavLink></li>
                     <li><NavLink to="/ask-question">Ask a Question</NavLink></li>
+                    <li><NavLink to="/unanswered">Unanswered Questions</NavLink></li>
                 </ul>
                 <div className="content">
                     <Route exact path="/" component={Home}/>
                     <Route path="/questions" component={QuestionList}/>
                     <Route path="/ask-question" component={AskQuestion}/>
                     <Route path="/question-detail" component={QuestionDetail}/>
+                    <Route path="/unanswered" component={UnansweredQuestions}/>
                 </div>
             </div>
         </HashRouter>

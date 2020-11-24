@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import {NavLink} from "react-router-dom";
+import React, { Component } from'react';
 import {convertDateTimeToString} from './ConvertDateTime'
+import {NavLink} from "react-router-dom";
 
-class QuestionList extends Component {
+class UnansweredQuestions extends Component {
     state = {
         questions: []
     }
     componentDidMount() {
-        fetch('http://127.0.0.1:8000/api/v1/questions/recent')
+        fetch('http://127.0.0.1:8000/api/v1/questions/unanswered')
             .then(res => res.json())
             .then((data) => {
                 this.setState({ questions: data })
@@ -26,7 +26,7 @@ class QuestionList extends Component {
 const Questions = ({ questions }) => {
     return (
         <div>
-            <h1>Unanswered Questions</h1>
+            <h1>Question List</h1>
             {questions.map((question) => (
                 <div class="card">
                     <div class="card-body">
@@ -40,8 +40,4 @@ const Questions = ({ questions }) => {
         </div>
     )
 };
-
-
-
-
-export default QuestionList;
+export default UnansweredQuestions;

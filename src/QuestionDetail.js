@@ -1,5 +1,6 @@
 
 import { Component } from'react';
+import {convertDateTimeToString} from './ConvertDateTime'
 
 class QuestionDetail extends Component {
     constructor(props){
@@ -29,7 +30,7 @@ class QuestionDetail extends Component {
                 <div>
                     <h1>Question: </h1>
                 <p>{ this.props.location.questionProps.content }</p>
-                <p>Time asked: {this.props.location.questionProps.time_asked}</p>
+                <p>Asked At: {convertDateTimeToString(this.props.location.questionProps.created_at)}</p>
                 <h1>There are not yet any answers for this questions. </h1>
                 </div>
             )
@@ -39,13 +40,13 @@ class QuestionDetail extends Component {
             <div>
                 <h1>Question: </h1>
                 <p>{ this.props.location.questionProps.content }</p>
-                <p>Time asked: {this.props.location.questionProps.time_asked}</p>
+                <p>Time asked: {convertDateTimeToString(this.props.location.questionProps.created_at)}</p>
                 <h1>Answers:</h1>
                 
                 {filtereAnswers.map(answer => (<ul>
                     <li>
                         <div>{answer.content}</div>
-                        <div>Time Answered: {answer.time_asked}</div>
+                        <div>Answered At: {convertDateTimeToString(answer.created_at)}</div>
                     </li>
                 </ul>))}
             </div>
