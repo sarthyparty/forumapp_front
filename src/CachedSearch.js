@@ -22,7 +22,7 @@ export default class CachedSearch {
             console.log("query retrieved from cache:", query);
             this.resultsHandler(this.cache[query]);
         } else {
-            fetch('http://127.0.0.1:8000/api/v1/questions/?search='+query)
+            fetch('http://127.0.0.1:8000/api/v1/questions/?search='+query + '&search_fields=content')
                 .then(res => res.json())
                 .then((data) => {
                     this.cache[query] = data;
