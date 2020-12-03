@@ -56,7 +56,7 @@ const Questions = ({ questions }) => {
                 <div class="card">
                     <div class="card-body">
                         <NavLink to={{
-                            pathname: '/question-detail/',
+                            pathname: '/questions/'.concat(question.pk),
                             questionProps: question}}>{question.content}</NavLink>
                         <p class="card-text">{convertDateTimeToString(question.created_at)}</p>
                     </div>

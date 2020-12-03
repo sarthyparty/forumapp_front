@@ -43,7 +43,7 @@ class QuestionDetail extends Component {
                 <div>
                     <h1>Question: </h1>
                 <p>{this.state.filteredQuestion.content}</p>
-                <p>Time asked: {this.state.filteredQuestion.created_at}</p>
+                <p>Time asked: {convertDateTimeToString(this.state.filteredQuestion.created_at)}</p>
                 <h1>There are not yet any answers for this questions. </h1>
                 </div>
             )
