@@ -2,35 +2,48 @@
 import { Component } from'react';
 import {convertDateTimeToString} from './ConvertDateTime'
 
+
 class QuestionDetail extends Component {
-    constructor(props){
-        super(props)
-    }
     state = {
-        answers: []
+        answers: [],
+        submitAnswer: '',
+        email: '',
+        filteredAnswers: [],
+        filteredQuestion: []
     }
 
     componentDidMount(){
-        
-        fetch('http://127.0.0.1:8000/api/v1/answers/')
+        const temp = window.location.href.split('/');
+        const len = temp.length
+        const pk = temp[len - 1];
+        console.log(pk)
+        fetch('http://127.0.0.1:8000/api/v1/answers/?format=json')
+        .then(res => res.json())
+        .then((data) => {
+            this.setState({answers: data})
+            console.log(this.state.answers)
+        })
+        .catch(console.log)
+        fetch('http://127.0.0.1:8000/api/v1/questions/'.concat(pk))
             .then(res => res.json())
             .then((data) => {
-                this.setState({ answers: data })
+                this.setState({ filteredQuestion: data})
+                console.log(this.state.filteredQuestion)
+                this.setState({filteredAnswers: this.state.answers.filter(answer => this.state.filteredQuestion.answers.includes(answer.pk))})
+                console.log(this.state.filteredAnswers)
+                
             })
             .catch(console.log)
-        console.log(this.state.answers)
     }
 
 
     render() {
-        const filtereAnswers = this.state.answers.filter(answer => answer.question === this.props.location.questionProps.pk)
-        console.log(filtereAnswers)
-        if (filtereAnswers.length === 0){
+        if (this.state.filteredAnswers.length === 0){
             return(
                 <div>
                     <h1>Question: </h1>
-                <p>{ this.props.location.questionProps.content }</p>
-                <p>Asked At: {convertDateTimeToString(this.props.location.questionProps.created_at)}</p>
+                <p>{this.state.filteredQuestion.content}</p>
+                <p>Time asked: {convertDateTimeToString(this.state.filteredQuestion.created_at)}</p>
                 <h1>There are not yet any answers for this questions. </h1>
                 </div>
             )
@@ -39,14 +52,18 @@ class QuestionDetail extends Component {
 
             <div>
                 <h1>Question: </h1>
-                <p>{ this.props.location.questionProps.content }</p>
-                <p>Time asked: {convertDateTimeToString(this.props.location.questionProps.created_at)}</p>
+                <p>{ this.state.filteredQuestion.content }</p>
+                <p>Time asked: {this.state.filteredQuestion.created_at}</p>
                 <h1>Answers:</h1>
                 
-                {filtereAnswers.map(answer => (<ul>
+                {this.state.filteredAnswers.map(answer => (<ul>
                     <li>
                         <div>{answer.content}</div>
+<<<<<<< HEAD
                         <div>Answered At: {answer.created_at}</div>
+=======
+                        <div>Time Answered: {answer.created_at}</div>
+>>>>>>> c5bc844560626f3726fa9fc2879f501a41dd3beb
                     </li>
                 </ul>))}
             </div>

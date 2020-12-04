@@ -24,9 +24,9 @@ class App extends Component {
                 </ul>
                 <div className="content">
                     <Route exact path="/" component={Home}/>
-                    <Route path="/questions" component={QuestionList}/>
+                    <Route exact path="/questions" component={QuestionList}/>
                     <Route path="/ask-question" component={AskQuestion}/>
-                    <Route path="/question-detail" component={QuestionDetail}/>
+                    <Route path="/questions/:pk" component={QuestionDetail}/>
                     <Route path="/unanswered" component={UnansweredQuestions}/>
                 </div>
             </div>
