@@ -46,7 +46,7 @@ class QuestionDetail extends Component {
                 {filtereAnswers.map(answer => (<ul>
                     <li>
                         <div>{answer.content}</div>
-                        <div>Answered At: {convertDateTimeToString(answer.created_at)}</div>
+                        <div>Answered At: {answer.created_at}</div>
                     </li>
                 </ul>))}
             </div>
