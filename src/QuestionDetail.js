@@ -1,6 +1,7 @@
 
 import { Component } from'react';
 import {convertDateTimeToString} from './ConvertDateTime'
+import {url} from './ApiUrl'
 
 
 class QuestionDetail extends Component {
@@ -17,14 +18,14 @@ class QuestionDetail extends Component {
         const len = temp.length
         const pk = temp[len - 1];
         console.log(pk)
-        fetch('http://127.0.0.1:8000/api/v1/answers/?format=json')
+        fetch(url.concat('answers/?format=json'))
         .then(res => res.json())
         .then((data) => {
             this.setState({answers: data})
             console.log(this.state.answers)
         })
         .catch(console.log)
-        fetch('http://127.0.0.1:8000/api/v1/questions/'.concat(pk))
+        fetch(url.concat('questions/'.concat(pk)))
             .then(res => res.json())
             .then((data) => {
                 this.setState({ filteredQuestion: data})
