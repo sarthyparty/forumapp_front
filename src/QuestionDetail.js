@@ -1,15 +1,56 @@
 
 import { Component } from'react';
 import {convertDateTimeToString} from './ConvertDateTime'
+import { Redirect } from 'react-router-dom';
 
 
 class QuestionDetail extends Component {
+    constructor (){
+        super();
+
+        this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        this.handleChangeContent = this.handleChangeContent.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeAuthor = this.handleChangeAuthor.bind(this);
+    }
     state = {
         answers: [],
-        submitAnswer: '',
+        content: '',
         email: '',
+        author: '',
         filteredAnswers: [],
         filteredQuestion: []
+    }
+
+    handleChangeAuthor(event){
+        this.setState({author: event.target.value});
+    }
+
+    handleChangeContent(event){
+        this.setState({content: event.target.value});
+    }
+
+    handleChangeEmail(event){
+        this.setState({email: event.target.value});
+    }
+
+    handleSubmit(event){
+        fetch('http://127.0.0.1:8000/api/v1/answers/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: this.state.content,
+                email: this.state.email,
+                has_answer: true,
+                question: this.state.filteredQuestion.pk,
+                author: this.state.author
+            })
+        })
+        window.location.reload(false);
+        // return <Redirect to={'/question-detail/'.concat(this.state.filteredQuestion.pk)}></Redirect>
     }
 
     componentDidMount(){
@@ -45,6 +86,21 @@ class QuestionDetail extends Component {
                 <p>{this.state.filteredQuestion.content}</p>
                 <p>Time asked: {this.state.filteredQuestion.created_at}</p>
                 <h1>There are not yet any answers for this questions. </h1>
+                <form onSubmit={this.handleSubmit}>
+                <label>
+                    Answer:
+                    <input type="text" value={this.state.content} onChange={this.handleChangeContent} />
+                </label>
+                <label>
+                    Email:
+                    <input type="text" value={this.state.email} onChange={this.handleChangeEmail} />
+                </label>
+                <label>
+                    Author:
+                    <input type="text" value={this.state.author} onChange={this.handleChangeAuthor}/>
+                </label>
+                <input type="submit" value="Submit" />
+                </form>
                 </div>
             )
         }
@@ -62,6 +118,21 @@ class QuestionDetail extends Component {
                         <div>Answered At: {answer.created_at}</div>
                     </li>
                 </ul>))}
+                <form onSubmit={this.handleSubmit}>
+                <label>
+                    Answer:
+                    <input type="text" value={this.state.content} onChange={this.handleChangeContent} />
+                </label>
+                <label>
+                    Email:
+                    <input type="text" value={this.state.email} onChange={this.handleChangeEmail} />
+                </label>
+                <label>
+                    Author:
+                    <input type="text" value={this.state.author} onChange={this.handleChangeAuthor}/>
+                </label>
+                <input type="submit" value="Submit" />
+                </form>
             </div>
         )
     }
