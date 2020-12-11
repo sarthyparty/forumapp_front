@@ -28,12 +28,12 @@ class UnansweredQuestions extends Component {
 const Questions = ({ questions }) => {
     return (
         <div>
-            <h1>Question List</h1>
+            <h1>Unanswered Questions</h1>
             {questions.map((question) => (
                 <div class="card">
                     <div class="card-body">
                         <NavLink to={{
-                            pathname: '/question-detail/'.concat(question.pk),
+                            pathname: '/questions/'.concat(question.pk),
                             questionProps: question}}>{question.content}</NavLink>
                         <p class="card-text">{convertDateTimeToString(question.created_at)}</p>
                     </div>

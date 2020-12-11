@@ -50,6 +50,7 @@ class QuestionForm extends React.Component {
                 has_answer: false,
             })
         })
+
     }
 
     render() {

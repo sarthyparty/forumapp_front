@@ -28,7 +28,7 @@ class QuestionList extends Component {
 const Questions = ({ questions }) => {
     return (
         <div>
-            <h1>Unanswered Questions</h1>
+            <h1>Recent Questions</h1>
             {questions.map((question) => (
                 <div class="card">
                     <div class="card-body">

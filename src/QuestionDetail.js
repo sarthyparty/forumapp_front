@@ -35,7 +35,7 @@ class QuestionDetail extends Component {
     }
 
     handleSubmit(event){
-        fetch('http://127.0.0.1:8000/api/v1/answers/', {
+        fetch(url.concat('answers/'), {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -44,13 +44,27 @@ class QuestionDetail extends Component {
             body: JSON.stringify({
                 content: this.state.content,
                 email: this.state.email,
-                has_answer: true,
                 question: this.state.filteredQuestion.pk,
                 author: this.state.author
             })
         })
         window.location.reload(false);
         // return <Redirect to={'/question-detail/'.concat(this.state.filteredQuestion.pk)}></Redirect>
+        if (this.state.filteredQuestion.has_answer == false) {
+            fetch(url.concat('questions/'.concat(this.state.filteredQuestion.pk)), {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: this.state.filteredQuestion.content,
+                    email: this.state.filteredQuestion.email,
+                    has_answer: true,
+                    author: this.state.filteredQuestion.author
+                })
+            })
+        }
     }
 
     componentDidMount(){
@@ -86,20 +100,22 @@ class QuestionDetail extends Component {
                 <p>{this.state.filteredQuestion.content}</p>
                 <p>Time asked: {this.state.filteredQuestion.created_at}</p>
                 <h1>There are not yet any answers for this questions. </h1>
+                    <h4>Create an answer below!</h4>
                 <form onSubmit={this.handleSubmit}>
                 <label>
                     Answer:
                     <input type="text" value={this.state.content} onChange={this.handleChangeContent} />
                 </label>
+                    <br></br>
                 <label>
-                    Email:
-                    <input type="text" value={this.state.email} onChange={this.handleChangeEmail} />
+                    Email: <input type="text" value={this.state.email} onChange={this.handleChangeEmail} />
                 </label>
+                    <br></br>
                 <label>
-                    Author:
-                    <input type="text" value={this.state.author} onChange={this.handleChangeAuthor}/>
+                    Author: <input type="text" value={this.state.author} onChange={this.handleChangeAuthor}/>
                 </label>
-                <input type="submit" value="Submit" />
+                    <br></br>
+                    <input type="submit" value="Submit" />
                 </form>
                 </div>
             )
