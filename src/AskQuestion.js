@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {url} from './ApiUrl'
 
 class AskQuestion extends Component {
     state = {
@@ -37,7 +38,7 @@ class QuestionForm extends React.Component {
     }
 
     handleSubmit(event) {
-        fetch('http://127.0.0.1:8000/api/v1/questions/', {
+        fetch(url.concat('questions/'), {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

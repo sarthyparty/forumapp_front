@@ -2,12 +2,14 @@ import React, { Component } from'react';
 import {convertDateTimeToString} from './ConvertDateTime'
 import {NavLink} from "react-router-dom";
 
+import {url} from './ApiUrl'
+
 class UnansweredQuestions extends Component {
     state = {
         questions: []
     }
     componentDidMount() {
-        fetch('http://127.0.0.1:8000/api/v1/questions/unanswered')
+        fetch(url.concat('questions/unanswered'))
             .then(res => res.json())
             .then((data) => {
                 this.setState({ questions: data })

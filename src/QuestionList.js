@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import {NavLink} from "react-router-dom";
 import {convertDateTimeToString} from './ConvertDateTime'
+import {url} from './ApiUrl'
+
 
 class QuestionList extends Component {
     state = {
         questions: []
     }
     componentDidMount() {
-        fetch('http://127.0.0.1:8000/api/v1/questions/recent')
+        fetch(url.concat('questions/recent'))
             .then(res => res.json())
             .then((data) => {
                 this.setState({ questions: data })
