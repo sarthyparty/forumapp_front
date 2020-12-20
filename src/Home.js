@@ -3,20 +3,21 @@ import {NavLink} from "react-router-dom";
 import {convertDateTimeToString} from "./ConvertDateTime";
 import CachedSearch from "./CachedSearch";
 
+import {url} from './ApiUrl'
 
 class Home extends Component {
-    state = {
-        query: "",
-        results: []
-    };
     constructor(props) {
         super(props);
-
 
         this.handleQueryChange = this.handleQueryChange.bind(this);
         this.handleResults = this.handleResults.bind(this);
         this.CachedSearch = new CachedSearch(this.handleResults);
     }
+    state = {
+        query: "",
+        results: [],
+        cachedQuestions: []
+    };
 
     handleQueryChange(query) {
         this.setState({ query });
@@ -25,7 +26,15 @@ class Home extends Component {
     handleResults(results) {
         this.setState({results})
     }
+
     render() {
+        const questions = new Set(localStorage.getItem('questions'))
+        console.log(questions)
+        fetch('http://127.0.0.1:8000/api/v1/questions').then(res => res.json)
+        .then(data => 
+            // this.setState({cachedQuestions: data.filter(question => questions.includes(String.valueOf(question.pk)))});
+            data.filter(question => console.log(question.pk))
+            )
         return (
             <div>
                 <h2>Hello there!</h2>
@@ -44,6 +53,11 @@ class Home extends Component {
                 <Questions questions={this.state.results} />
                 <h3>Query Count: {this.CachedSearch.queryCount}</h3>
                 <h3>Cache Hits: {this.CachedSearch.cacheHits}</h3>
+                <div>
+                <div>
+                    {this.state.cachedQuestions}
+                    </div>
+                </div>
             </div>
         );
     }
