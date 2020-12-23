@@ -19,7 +19,14 @@ class QuestionList extends Component {
     }
 
     render() {
-
+        if (this.props.location.state) {
+            return (
+                <div>
+                    <h3>{this.props.location.state.success}</h3>
+                    <Questions questions={this.state.questions} />
+                </div>
+            )
+        }
         return (
             <Questions questions={this.state.questions} />
         )

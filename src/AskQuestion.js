@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import {url} from './ApiUrl'
+import { Redirect } from "react-router-dom";
+
 
 class AskQuestion extends Component {
     state = {
-        question: null
     }
     componentDidMount() {
 
@@ -22,7 +23,7 @@ class AskQuestion extends Component {
 class QuestionForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {content: '', email: ''};
+        this.state = {content: '', email: '', redirect: null};
 
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangeContent = this.handleChangeContent.bind(this);
@@ -50,10 +51,17 @@ class QuestionForm extends React.Component {
                 has_answer: false,
             })
         })
+        this.setState({redirect: '/questions'})
 
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={{
+                pathname: this.state.redirect,
+                state: {success: 'The question was successfully created!'}
+            }}/>
+        }
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>

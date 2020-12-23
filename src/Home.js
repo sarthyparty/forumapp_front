@@ -33,7 +33,6 @@ class Home extends Component {
 
                 <p>If you've wandered here you're probably in need of a little help,
                     or you're here to help someone. Ask a question to get started! </p>
-                <h3>Cache Based Search</h3>
                 <form>
                     <label>Search: </label>
                     <input
@@ -42,8 +41,6 @@ class Home extends Component {
                 </form>
 
                 <Questions questions={this.state.results} />
-                <h3>Query Count: {this.CachedSearch.queryCount}</h3>
-                <h3>Cache Hits: {this.CachedSearch.cacheHits}</h3>
             </div>
         );
     }
