@@ -5,9 +5,6 @@ class AskQuestion extends Component {
     state = {
         question: null
     }
-    componentDidMount() {
-
-    }
 
     render() {
         return (

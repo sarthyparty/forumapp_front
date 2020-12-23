@@ -4,6 +4,7 @@ import {convertDateTimeToString} from "./ConvertDateTime";
 import CachedSearch from "./CachedSearch";
 
 import {url} from './ApiUrl'
+// import {Questions} from './UnansweredQuestions'
 
 class Home extends Component {
     constructor(props) {
@@ -27,14 +28,29 @@ class Home extends Component {
         this.setState({results})
     }
 
-    render() {
-        const questions = new Set(localStorage.getItem('questions'))
+    toInt(str){
+        return parseInt(str)
+    }
+
+    componentDidMount(){
+        const questions = localStorage.getItem('questions').split('/');
+        var intquestion = []
+        for (var i = 0; i < 5; i++){
+            intquestion.push(parseInt(questions[questions.length - i - 1]))
+        }
         console.log(questions)
-        fetch('http://127.0.0.1:8000/api/v1/questions').then(res => res.json)
-        .then(data => 
-            // this.setState({cachedQuestions: data.filter(question => questions.includes(String.valueOf(question.pk)))});
-            data.filter(question => console.log(question.pk))
-            )
+        console.log(intquestion)
+        fetch(url.concat('questions/'))
+        .then(res => res.json())
+        .then((data) => {
+            this.setState({cachedQuestions: data.filter(question => intquestion.includes(question.pk))})
+        })
+        .catch(console.log)
+
+    }
+
+    render() {
+        
         return (
             <div>
                 <h2>Hello there!</h2>
@@ -55,7 +71,7 @@ class Home extends Component {
                 <h3>Cache Hits: {this.CachedSearch.cacheHits}</h3>
                 <div>
                 <div>
-                    {this.state.cachedQuestions}
+                    <Questions questions={this.state.cachedQuestions}></Questions>
                     </div>
                 </div>
             </div>
