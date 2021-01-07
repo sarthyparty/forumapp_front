@@ -3,20 +3,22 @@ import {NavLink} from "react-router-dom";
 import {convertDateTimeToString} from "./ConvertDateTime";
 import CachedSearch from "./CachedSearch";
 
+import {url} from './ApiUrl'
+// import {Questions} from './UnansweredQuestions'
 
 class Home extends Component {
-    state = {
-        query: "",
-        results: []
-    };
     constructor(props) {
         super(props);
-
 
         this.handleQueryChange = this.handleQueryChange.bind(this);
         this.handleResults = this.handleResults.bind(this);
         this.CachedSearch = new CachedSearch(this.handleResults);
     }
+    state = {
+        query: "",
+        results: [],
+        cachedQuestions: []
+    };
 
     handleQueryChange(query) {
         this.setState({ query });
@@ -25,7 +27,30 @@ class Home extends Component {
     handleResults(results) {
         this.setState({results})
     }
+
+    toInt(str){
+        return parseInt(str)
+    }
+
+    componentDidMount(){
+        const questions = localStorage.getItem('questions').split('/');
+        var intquestion = []
+        for (var i = 0; i < 5; i++){
+            intquestion.push(parseInt(questions[questions.length - i - 1]))
+        }
+        console.log(questions)
+        console.log(intquestion)
+        fetch(url.concat('questions/'))
+        .then(res => res.json())
+        .then((data) => {
+            this.setState({cachedQuestions: data.filter(question => intquestion.includes(question.pk))})
+        })
+        .catch(console.log)
+
+    }
+
     render() {
+        
         return (
             <div>
                 <h2>Hello there!</h2>
@@ -41,6 +66,13 @@ class Home extends Component {
                 </form>
 
                 <Questions questions={this.state.results} />
+                <h3>Query Count: {this.CachedSearch.queryCount}</h3>
+                <h3>Cache Hits: {this.CachedSearch.cacheHits}</h3>
+                <div>
+                <div>
+                    <Questions questions={this.state.cachedQuestions}></Questions>
+                    </div>
+                </div>
             </div>
         );
     }

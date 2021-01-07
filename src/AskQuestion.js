@@ -6,9 +6,6 @@ import { Redirect } from "react-router-dom";
 class AskQuestion extends Component {
     state = {
     }
-    componentDidMount() {
-
-    }
 
     render() {
         return (

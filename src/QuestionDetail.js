@@ -71,6 +71,8 @@ class QuestionDetail extends Component {
         const temp = window.location.href.split('/');
         const len = temp.length
         const pk = temp[len - 1];
+        localStorage.setItem('questions', localStorage.getItem('questions')+'/'.concat(pk))
+        console.log(new Set(localStorage.getItem('questions')))
         console.log(pk)
         fetch(url.concat('answers/?format=json'))
         .then(res => res.json())
